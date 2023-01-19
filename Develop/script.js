@@ -5,55 +5,18 @@
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
-  // const saveButton1 = document.getElementById('1')
-  // const saveButton2 = document.getElementById('2')
-  // const saveButton3 = document.getElementById('3')
-  // const saveButton4 = document.getElementById('4')
-  // const saveButton5 = document.getElementById('5')
-  // const saveButton6 = document.getElementById('6')
-  // const saveButton7 = document.getElementById('7')
-  // const saveButton8 = document.getElementById('8')
-  // const saveButton9 = document.getElementById('9')
-
-
-  // const currentDay = document.getElementById('currentDay')
-  // const container = document.getElementById('container')
-
-  // const textArea9 = document.getElementById('text-hour-9')
-  // const textArea10 = document.getElementById('text-hour-10')
-  // const textArea11 = document.getElementById('text-hour-11')
-  // const textArea12 = document.getElementById('text-hour-12')
-  // const textArea13 = document.getElementById('text-hour-13')
-  // const textArea14 = document.getElementById('text-hour-14')
-  // const textArea15 = document.getElementById('text-hour-15')
-  // const textArea16 = document.getElementById('text-hour-16')
-  // const textArea17 = document.getElementById('text-hour-17')
-
-  // textArea9.value = localStorage.getItem("text-9") || "";
-  // textArea10.value = localStorage.getItem("text-10") || "";
-  // textArea11.value = localStorage.getItem("text-11") || "";
-  // textArea12.value = localStorage.getItem("text-12") || "";
-  // textArea13.value = localStorage.getItem("text-13") || "";
-  // textArea14.value = localStorage.getItem("text-14") || "";
-  // textArea17.value = localStorage.getItem("text-17") || "";
-  // textArea15.value = localStorage.getItem("text-15") || "";
-  // textArea16.value = localStorage.getItem("text-16") || "";
-  
-  const count = ['09', '10', '11', '12', '13', '14', '15', '16', '17']
-  const time = ['9AM', '10AM', '11AM', '12AM', '1PM', '2PM', '3PM', '4PM', '5PM']
-
-
-
-
-
+    
+  // const count = ['09', '10', '11', '12', '13', '14', '15', '16', '17']
+  // const time = ['9AM', '10AM', '11AM', '12AM', '1PM', '2PM', '3PM', '4PM', '5PM']
 
   const today = dayjs()
   const date = today.$d
-  const hour = dayjs().hour
+  const hour = dayjs().$H
+  console.log(today)
   currentDay.textContent = date
   
 
-  $('description').each(function() {
+  $('.description').each(function() {
     $(this).val(localStorage.getItem($(this).parent().attr('id')))
   })
 
@@ -62,44 +25,24 @@ $(function () {
     $(this).on('click', () => {
       let key = $(this).parent().attr('id')
       let value = $(this).prev().val()
+      console.log(key)
+      console.log(value)
       localStorage.setItem(key, value)
-      console.log(localStorage)
     })
   })
 
-
-
-
-  // saveButton1.addEventListener('click', e => {
-  //   const buttonVal = e.target.id
-  //   if (buttonVal === 1) {
-  //   localStorage.setItem("text-9", textArea9.value)
-  //   } else if 
-  //     (buttonVal === 2) {
-  //       localStorage.setItem("text-10", textArea10.value)
-  //   } else if 
-  //     (buttonVal === 3) {
-  //       localStorage.setItem("text-11", textArea11.value)
-  //   } else if 
-  //     (buttonVal === 4) {
-  //     localStorage.setItem("text-12", textArea12.value)
-  //   } else if 
-  //     (buttonVal === 5) {
-  //     localStorage.setItem("text-13", textArea13.value)
-  //   } else if 
-  //     (buttonVal === 6) {
-  //     localStorage.setItem("text-14", textArea14.value)
-  //   } else if 
-  //     (buttonVal === 7) {
-  //     localStorage.setItem("text-15", textArea15.value)
-  //   } else if 
-  //     (buttonVal === 8) {
-  //     localStorage.setItem("text-15", textArea16.value)
-  //   } else if 
-  //     (buttonVal === 9) {
-  //     localStorage.setItem("text-17", textArea17.value)
-  //   }
-  // })
+  $('textarea').each(function() {
+    let parentHour = $(this).parent().attr('id')
+    if (parentHour == hour) {
+      $(this).addClass("present")
+    } else if (parentHour < hour) {
+      $(this).addClass("past")
+    } else {
+      $(this).addClass("future")
+    }
+    }
+    // console.log(`current Hour is ${hour} vs ${parentHour}`)
+  )
 
   
   // let date = day.js().format('ddd, MMM D YYY, h:mm:ss a')
